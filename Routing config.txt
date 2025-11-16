@@ -1,0 +1,182 @@
+ROUTER	        IP Address	Ip Type
+Router 1	100.0.0.0	Class A
+Router 2	200.168.30.0	Class C
+Router 3	195.98.56.0	Class C
+Router 4	38.0.0.0	Class A
+Router 5	125.60.0.0	Class B
+Router 6	190.60.0.0	Class B
+Router 7	45.0.0.0	Class A
+
+
+Server	Server IP
+DHCP	190.60.0.100
+DNS	190.60.0.150
+Web	190.60.0.200
+
+
+
+Router-1
+
+interface fa0/0
+ip address 100.0.0.254 255.0.0.0 no shut
+do wr exit
+
+interface se3/0
+ip address 166.120.0.1 255.255.0.0
+no shut do wr exit
+
+interface se6/0
+ip address 196.160.50.1 255.255.255.0
+no shut do wr exit
+
+interface se2/0
+ip address 192.158.1.1 255.255.255.0
+clock rate 64000 no shut
+do wr exit	Router-2
+
+
+Router 2
+interface fa0/0
+ip address 200.168.30.254
+255.255.255.0
+no shut do wr exit
+
+interface se2/0
+ip address 197.140.30.1
+255.255.255.0
+clock rate 64000 no shut
+do wr exit
+
+
+interface se3/0
+ip address 166.120.0.2
+255.255.0.0
+clock rate 64000 no shut
+do wr exit
+
+interface se6/0
+ip address 40.0.0.1 255.0.0.0
+clock rate 64000 no shut
+do wr exit
+
+
+
+Router 3
+
+interface fa0/0
+ip address 195.98.56.254 255.255.255.0
+no shut do wr exit
+
+interface se2/0
+ip address 120.0.0.1 255.0.0.0 no shut
+do wr exit
+
+interface se3/0
+ip address 40.0.0.2 255.0.0.0 no shut
+do wr exit
+
+
+
+Router-4
+
+interface fa0/0
+ip address 38.0.0.254 255.0.0.0 no shut
+do wr exit
+
+interface se3/0
+ip address 78.0.0.1 255.0.0.0 no shut
+do wr exit
+
+interface se2/0
+ip address 210.30.10.1
+255.255.255.0
+no shut do wr exit
+
+
+
+Router-5
+
+interface fa0/0
+ip address 125.60.0.254 255.255.0.0
+no shut do wr exit
+
+interface se2/0
+ip address 20.0.0.1 255.0.0.0
+clock rate 64000 no shut
+do wr exit
+
+interface se6/0
+ip address 78.0.0.2 255.0.0.0 no shut
+do wr
+exit
+
+interface se3/0
+ip address 196.160.50.2 255.255.255.0
+
+
+
+Router 6
+
+interface fa0/0
+ip address 197.30.20.254
+255.255.255.0
+no shut do wr exit
+
+interface fa1/0
+ip address 190.60.0.254
+255.255.0.0
+no shut do wr exit
+
+interface se2/0
+ip address 217.40.18.1
+255.255.255.0
+no shut do wr exit
+
+
+
+Routing Table:
+
+
+Router-1
+
+router ospf 1
+network 100.0.0.0 0.255.255.255 area 1
+network 166.120.0.0 0.0.255.255 area 1
+network 196.160.50.0 0.0.0.255 area 1
+network 192.158.1.0 0.0.0.255 area 1 exit
+
+Router-2
+
+router ospf 2
+network 200.168.30.0 0.0.0.255 area 1
+network 40.0.0.0 0.255.255.255 area 1
+network 197.140.30.0 0.0.0.255 area 1
+network 166.120.0.0 0.0.255.255 area 1 exit
+
+Router-3
+
+router ospf 3
+network 40.0.0.0 0.255.255.255 area 1
+network 195.98.56.0 0.0.0.255 area 1
+network 120.0.0.0 0.255.255.255 area 1 exit
+
+Router-4
+
+router ospf 4
+network 210.30.10.0 0.0.0.255 area 1
+network 78.0.0.0 0.255.255.255 area 1
+network 38.0.0.0 0.255.255.255 area 1 exit
+
+Router-5
+
+router ospf 5
+network 196.160.50.0 0.0.0.255 area 1
+network 20.0.0.0 0.255.255.255 area 1
+network 125.60.0.0 0.0.255.255 area 1
+network 78.0.0.0 0.255.255.255 area 1 exit
+
+Router-6
+
+router ospf 6
+network 217.40.18.0 0.0.0.255 area 1
+network 190.60.0.0 0.0.255.255 area 1 exit
